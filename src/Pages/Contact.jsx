@@ -24,11 +24,11 @@ const Contact = () => {
           },
         }
       )
-      .then((data) => {
-        console.log(data.data?.users[0]);
+      .then((res) => {
+        console.log(res.data?.users[0]);
         setUpdatedInfo({
-          name: data.data?.users[0].displayName,
-          profilePic: data.data?.users[0].photoUrl,
+          name: res.data?.users[0].displayName,
+          profilePic: res.data?.users[0].photoUrl,
         });
       })
       .catch((err) => console.log(err));
