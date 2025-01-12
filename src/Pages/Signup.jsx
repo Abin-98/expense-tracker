@@ -53,7 +53,7 @@ const Signup = () => {
 
   return (
     <div className="flex flex-col justify-center items-center">
-      <div className="border-2 bg-white mt-40 w-[25rem]">
+      <div className="border-2 bg-white mt-40 w-[25rem] shadow-lg">
         <div className="flex flex-col py-7 px-5">
           <h1 className="flex justify-center text-2xl my-5">
             {isLogin ? "Login" : "SignUp"}
@@ -61,7 +61,7 @@ const Signup = () => {
           <form onSubmit={handleSubmit} className="flex flex-col gap-2">
             <input
               className="border-2 px-2 rounded-md h-10"
-              type="text"
+              type="email"
               placeholder="Email"
               value={userInfo.email}
               onChange={(e) =>
@@ -95,6 +95,7 @@ const Signup = () => {
               {isLogin ? "Login" : "SignUp"}
             </button>
           </form>
+          {isLogin && <button className="underline text-blue-500">Forgot Password?</button>}
         </div>
       </div>
       <div className="flex bg-lime-100 border-2 border-black rounded-md mt-5 p-3 w-[25rem] justify-center">
