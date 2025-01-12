@@ -1,8 +1,9 @@
-
 const PostLogin = () => {
   return (
-    <div>PostLogin</div>
-  )
-}
+    <div>
+      <h1>Welcome to Expense Tracker!!</h1>
+    </div>
+  );
+};
 
-export default PostLogin
+export default PostLogin;
