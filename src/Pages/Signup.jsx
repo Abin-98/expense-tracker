@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { ContextFile } from "../context/ContextFile";
 
 const Signup = () => {
-    const {setIdToken} = useContext(ContextFile)
+    const {setIdToken, navigate} = useContext(ContextFile)
   const [isLogin, setIsLogin] = useState(false);
   const [confirmPass, setConfirmPass] = useState("");
   const [userInfo, setUserInfo] = useState({
@@ -46,6 +46,7 @@ const Signup = () => {
         setIdToken(data.idToken)
         localStorage.setItem("idtoken",data.idToken)
         console.log(data);
+        navigate('/')
       })
       .catch((err) => alert(err.message));
   };
