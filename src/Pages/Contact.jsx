@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ContextFile } from "../context/ContextFile";
 
 const Contact = () => {
@@ -9,9 +9,30 @@ const Contact = () => {
     profilePic: "",
   });
 
-  const handleCancel=()=>{
-    navigate(-1)
-  }
+  const handleCancel = () => {
+    navigate(-1);
+  };
+
+  useEffect(() => {
+    axios
+      .post(
+        "https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyDp2l3Q_JVR3OxCwJj3rguXO1Yyy_ehMKM",
+        { idToken: idToken },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((data) => {
+        console.log(data.data?.users[0]);
+        setUpdatedInfo({
+          name: data.data?.users[0].displayName,
+          profilePic: data.data?.users[0].photoUrl,
+        });
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -40,7 +61,10 @@ const Contact = () => {
       <div className="flex flex-col container border-2 w-[30rem] p-3 mt-20 bg-white">
         <div className="flex justify-between py-5">
           <h1 className="text-lg font-bold">Contact Details</h1>
-          <button onClick={handleCancel} className="px-2 bg-white border-red-500 border-2 text-red-500">
+          <button
+            onClick={handleCancel}
+            className="px-2 bg-white border-red-500 border-2 text-red-500"
+          >
             Cancel
           </button>
         </div>

@@ -5,7 +5,8 @@ import { useNavigate } from 'react-router-dom'
 
 const ContextProvider = (props) => {
   const navigate=useNavigate()
-  const [idToken, setIdToken] = useState('')
+  const [idToken, setIdToken] = useState(localStorage.getItem('idtoken'))
+  
   const isLoggedIn = !!idToken
 
   const value={

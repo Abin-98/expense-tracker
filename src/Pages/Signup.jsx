@@ -44,7 +44,7 @@ const Signup = () => {
       .then((data) => {
         alert("Success!");
         setIdToken(data.idToken)
-        localStorage.setItem("idtoken",data.idToken)
+        localStorage.setItem("idtoken", data.idToken)
         console.log(data);
         navigate('/')
       })
