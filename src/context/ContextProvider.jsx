@@ -8,7 +8,7 @@ const ContextProvider = (props) => {
   const [idToken, setIdToken] = useState(localStorage.getItem('idtoken'))
   const [emailVerified, setEmailVerified]=useState(false)
   const isLoggedIn = !!idToken
-  const [expenseList, setExpenseList] =useState([])
+  const [expenseList, setExpenseList] =useState({})
 
   const value={
       idToken,

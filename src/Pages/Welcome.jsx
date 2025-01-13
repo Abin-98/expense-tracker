@@ -33,13 +33,9 @@ const Welcome = () => {
       })
       .catch((err) => {
         console.log(err);
-        if (
-          err?.code == "auth/invalid-id-token"
-        ) {
+        if (err?.code == "auth/invalid-id-token") {
           alert("Session expired! Please login again");
-        } else if (
-          err?.message == "auth/user-not-found"
-        ) {
+        } else if (err?.message == "auth/user-not-found") {
           alert("User not found! Please Sign up");
         }
         setIdToken(null);
@@ -50,18 +46,19 @@ const Welcome = () => {
 
   return (
     <div>
-      <section className="h-[5rem] bg-white flex justify-around items-center">
-        <h1 className="ml-10">Welcome to Expense Tracker!!</h1>
-        <div className="">
-        <button
-          className="bg-blue-600 px-4 py-2 text-white block"
-          onClick={handleVerify}
-        >
-          Verify Email
-        </button>
-        <h1>Verified: {String(emailVerified)}</h1>
-      </div>
+      <section className="h-[5rem] bg-gradient-to-r from-neutral-50 flex justify-around items-center">
+        <h1 className="ml-10 text-2xl">Welcome to Expense Tracker!!</h1>
+
         <span className="flex gap-5 justify-between items-center">
+          <div className="">
+            <button
+              className="bg-blue-600 px-4 py-2 text-white block"
+              onClick={handleVerify}
+            >
+              Verify Email
+            </button>
+            <h1>Verified: {String(emailVerified)}</h1>
+          </div>
           <button className="bg-slate-400 px-4 py-2" onClick={handleLogout}>
             Logout
           </button>
@@ -75,9 +72,10 @@ const Welcome = () => {
             </button>
           </span>
         </span>
+        
       </section>
-      <hr className="border-[1px] border-black"/>
-      <Expenses/>
+      <hr className="border-[1px] w-full border-gray-400" />
+      <Expenses />
     </div>
   );
 };

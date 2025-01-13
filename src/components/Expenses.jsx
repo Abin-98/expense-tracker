@@ -5,21 +5,21 @@ import axios from "axios";
 
 const Expenses = () => {
   const { expenseList, setExpenseList } = useContext(ContextFile);
+  const [fetchExpenses, setFetchExpenses] = useState(true)
   const [expense, setExpense] = useState({
-    id: "",
     amount: 0,
     description: "",
     category: "Food",
   });
   const assetList = ["Assets-Profit", "Savings", "Salary"];
 
-  const netGain=Number(expenseList?.filter((item) =>
+  const netGain=Number(Object.values(expenseList)?.filter((item) =>
         assetList?.some((asset) => asset === item.category)
       )
       .reduce((acc, item) => acc + Number(item.amount), 0)
     ).toFixed(2)
 
-  const netLoss=Number(expenseList?.filter((item) =>
+  const netLoss=Number(Object.values(expenseList)?.filter((item) =>
           !assetList?.some((asset) => asset === item.category)
       )
       .reduce((acc, item) => acc + Number(item.amount), 0)  // Number() because data from realtime db is string
@@ -30,16 +30,15 @@ const Expenses = () => {
       .get("https://expense-tracker-da8bb-default-rtdb.firebaseio.com/expenses.json")
       .then((res) => {
 
-        setExpenseList(Object.values(res.data))
+        setExpenseList({...res.data})
         console.log(Object.values(res.data))
         })
       .catch((err) => console.log(err));
-  }, []);
+  }, [fetchExpenses]);
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    expense.id = Math.floor(Math.random() * 10000);
-    setExpenseList([...expenseList, expense]);
     axios
       .post(
         "https://expense-tracker-da8bb-default-rtdb.firebaseio.com/expenses.json",
@@ -49,7 +48,16 @@ const Expenses = () => {
           category: expense.category,
         }
       )
-      .then((res) => console.log(res))
+      .then((res) => {
+        const id=res.data?.name
+        setExpenseList({...expenseList, [id]:expense})
+        setExpense({
+          amount: 0,
+          description: "",
+          category: "Food",
+        })
+        console.log(res)
+        })
       .catch((err) => console.log(err));
   };
   return (
@@ -121,7 +129,7 @@ const Expenses = () => {
         </div>
       </div>
       <div className="flex justify-center col-span-3">
-        <div className="flex flex-col mt-3 min-w-[20rem] w-[30rem]">
+        <div className="flex flex-col mt-3 min-w-[20rem] w-[40rem]">
           <div className="py-5">
             <h3 className="text-xl font-semibold">YOUR BALANCE</h3>
             <h1 className="text-4xl">
@@ -132,14 +140,14 @@ const Expenses = () => {
           <div className="grid grid-cols-2 bg-white shadow-lg">
             <span className="flex flex-col justify-center items-center border-r-2">
               <h1 className="text-lg font-semibold">INCOME</h1>
-              <h1 className="text-xl text-green-600">
+              <h1 className="text-xl font-semibold text-green-600">
                 $
                 {netGain}
               </h1>
             </span>
             <span className="flex flex-col justify-center items-center py-3">
               <h1 className="text-lg font-semibold">EXPENSE</h1>
-              <h1 className="text-xl text-red-600">
+              <h1 className="text-xl font-semibold text-red-600">
                 $
                 {netLoss}
               </h1>
@@ -149,8 +157,11 @@ const Expenses = () => {
             <h1 className="mb-5">Transaction History</h1>
             <hr className="border-blue-600" />
           </div>
-          {expenseList.map((item) => (
-            <List item={item} key={item.id} assetList={assetList} />
+          {
+
+
+          Object.keys(expenseList).map((id) => (
+            <List item={expenseList[id]} key={id} id={id} assetList={assetList} setFetchExpenses={setFetchExpenses}/>
           ))}
         </div>
       </div>
