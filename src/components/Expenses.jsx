@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { ContextFile } from "../context/ContextFile";
-import List from "./List";
+import List from "./List"
 
 const Expenses = () => {
   const { expenseList, setExpenseList } = useContext(ContextFile);
