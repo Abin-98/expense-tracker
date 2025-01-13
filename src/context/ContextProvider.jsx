@@ -8,6 +8,7 @@ const ContextProvider = (props) => {
   const [idToken, setIdToken] = useState(localStorage.getItem('idtoken'))
   const [emailVerified, setEmailVerified]=useState(false)
   const isLoggedIn = !!idToken
+  const [expenseList, setExpenseList] =useState([])
 
   const value={
       idToken,
@@ -15,7 +16,9 @@ const ContextProvider = (props) => {
       navigate,
       isLoggedIn,
       emailVerified,
-      setEmailVerified
+      setEmailVerified,
+      expenseList,
+      setExpenseList
     }
   return (
     // eslint-disable-next-line react/prop-types
