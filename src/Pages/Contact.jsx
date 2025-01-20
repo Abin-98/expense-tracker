@@ -4,8 +4,9 @@ import { ContextFile } from "../context/ContextFile";
 import { useSelector } from "react-redux";
 
 const Contact = () => {
-  
-  const idToken = useSelector(state=>state.auth.idToken)
+  const idToken = useSelector((state) => state.auth.idToken);
+
+  const dark = useSelector((state) => state.theme.darkTheme);
 
   const { navigate } = useContext(ContextFile);
   const [updatedInfo, setUpdatedInfo] = useState({
@@ -61,8 +62,12 @@ const Contact = () => {
   };
 
   return (
-    <div className="flex justify-center">
-      <div className="flex flex-col container border-2 w-[30rem] p-3 mt-20 bg-white">
+    <section
+      className={`flex justify-center ${
+        dark && "dark"
+      } bg-neutral-200 dark:bg-neutral-700 h-[100vh]`}
+    >
+      <div className="flex flex-col container border-2 w-[30rem] p-3 mt-40 bg-white dark:bg-slate-300 h-fit">
         <div className="flex justify-between py-5">
           <h1 className="text-lg font-bold">Contact Details</h1>
           <button
@@ -99,7 +104,7 @@ const Contact = () => {
           </button>
         </form>
       </div>
-    </div>
+    </section>
   );
 };
 

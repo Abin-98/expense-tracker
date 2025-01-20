@@ -58,7 +58,7 @@ const List = ({ item, assetList, id, setFetchExpenses }) => {
   return (
     <div
       key={id}
-      className={`mb-3 py-2 bg-white px-4 w-full grid grid-cols-4 gap-x-10 justify-items-start rounded-lg shadow-lg  ${
+      className={`mb-3 py-2 bg-white px-4 w-full grid grid-cols-4 gap-x-10 justify-items-start rounded-lg shadow-lg dark:bg-slate-300 ${
         assetList.some((asset) => asset === item.category)
           ? "border-green-600"
           : "border-red-600"
@@ -136,19 +136,16 @@ const List = ({ item, assetList, id, setFetchExpenses }) => {
             <button
               type="submit"
               onClick={handleEdit}
-              className="bg-blue-500 rounded-md text-white px-2"
+              className="bg-blue-500 rounded-md text-white px-2 hover:bg-blue-700"
             >
               Edit
             </button>
             <button
               onClick={handleDelete}
-              className="bg-red-500 rounded-md text-white px-2"
+              className="bg-red-500 rounded-md text-white px-2 hover:bg-red-700"
             >
               Delete
             </button>
-            {item.amount>10000 && <button className="bg-yellow-500 rounded-md text-white px-2">
-              Activate Premium
-            </button>}
           </span>
         </>
       )}

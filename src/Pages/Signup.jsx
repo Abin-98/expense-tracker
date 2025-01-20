@@ -58,8 +58,8 @@ const Signup = () => {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center">
-      <div className="border-2 bg-white mt-40 w-[25rem] shadow-lg">
+    <div className="flex flex-col justify-center items-center bg-signup h-[100vh]">
+      <div className="border-2 bg-white w-[25rem] shadow-xl">
         <div className="flex flex-col py-7 px-5">
           <h1 className="flex justify-center text-2xl my-5">
             {isLogin ? "Login" : "SignUp"}
