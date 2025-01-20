@@ -2,9 +2,13 @@ import { useContext } from "react";
 import { ContextFile } from "../context/ContextFile";
 import axios from "axios";
 import Expenses from "../components/Expenses";
+import { useDispatch, useSelector } from "react-redux";
+import { authActions } from "../store/reducers/authSlice";
 
 const Welcome = () => {
-  const { navigate, setIdToken, idToken, emailVerified } =
+  const idToken = useSelector(state=>state.auth.idToken)
+  const dispatch = useDispatch()
+  const { navigate, emailVerified } =
     useContext(ContextFile);
   const handleClick = () => {
     navigate("/contact");
@@ -12,7 +16,8 @@ const Welcome = () => {
 
   const handleLogout = () => {
     localStorage.clear();
-    setIdToken(null);
+    dispatch(authActions.setIdToken(null))
+    // setIdToken(null);
   };
 
   const handleVerify = () => {
@@ -38,7 +43,8 @@ const Welcome = () => {
         } else if (err?.message == "auth/user-not-found") {
           alert("User not found! Please Sign up");
         }
-        setIdToken(null);
+        dispatch(authActions.setIdToken(null))
+        // setIdToken(null);
         localStorage.clear();
         navigate("/login");
       });

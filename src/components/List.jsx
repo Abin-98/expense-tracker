@@ -132,7 +132,7 @@ const List = ({ item, assetList, id, setFetchExpenses }) => {
           <span className="italic">{item.description}</span>
           <span className="text-lg font-semibold">${item.amount}</span>
 
-          <span className="flex gap-2">
+          <span className="flex flex-wrap gap-2">
             <button
               type="submit"
               onClick={handleEdit}
@@ -146,6 +146,9 @@ const List = ({ item, assetList, id, setFetchExpenses }) => {
             >
               Delete
             </button>
+            {item.amount>10000 && <button className="bg-yellow-500 rounded-md text-white px-2">
+              Activate Premium
+            </button>}
           </span>
         </>
       )}

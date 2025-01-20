@@ -1,8 +1,13 @@
 import { useContext, useState } from "react";
 import { ContextFile } from "../context/ContextFile";
+import { useDispatch } from "react-redux";
+import { authActions } from "../store/reducers/authSlice";
 
 const Signup = () => {
-    const {setIdToken, navigate} = useContext(ContextFile)
+
+  const dispatch = useDispatch()
+
+    const {navigate} = useContext(ContextFile)
   const [isLogin, setIsLogin] = useState(false);
   const [confirmPass, setConfirmPass] = useState("");
   const [userInfo, setUserInfo] = useState({
@@ -43,7 +48,8 @@ const Signup = () => {
       })
       .then((data) => {
         alert("Success!");
-        setIdToken(data.idToken)
+        dispatch(authActions.setIdToken(data.idToken))
+        // setIdToken(data.idToken)
         localStorage.setItem("idtoken", data.idToken)
         console.log(data);
         navigate('/')

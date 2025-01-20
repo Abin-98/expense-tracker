@@ -1,9 +1,13 @@
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { ContextFile } from "../context/ContextFile";
+import { useSelector } from "react-redux";
 
 const Contact = () => {
-  const { idToken, navigate } = useContext(ContextFile);
+  
+  const idToken = useSelector(state=>state.auth.idToken)
+
+  const { navigate } = useContext(ContextFile);
   const [updatedInfo, setUpdatedInfo] = useState({
     name: "",
     profilePic: "",

@@ -2,9 +2,14 @@ import { useContext, useEffect, useState } from "react";
 import { ContextFile } from "../context/ContextFile";
 import List from "./List";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { expenseActions } from "../store/reducers/expenseSlice";
 
 const Expenses = () => {
-  const { expenseList, setExpenseList } = useContext(ContextFile);
+
+  const dispatch=useDispatch()
+  const expenseList = useSelector(state=>state.expense.expenseList)
+  // const { expenseList, setExpenseList } = useContext(ContextFile);
   const [fetchExpenses, setFetchExpenses] = useState(true)
   const [expense, setExpense] = useState({
     amount: 0,
@@ -29,8 +34,8 @@ const Expenses = () => {
     axios
       .get("https://expense-tracker-da8bb-default-rtdb.firebaseio.com/expenses.json")
       .then((res) => {
-
-        setExpenseList({...res.data})
+        dispatch(expenseActions.setExpenseList({...res.data}))
+        // setExpenseList({...res.data})
         console.log(Object.values(res.data))
         })
       .catch((err) => console.log(err));
@@ -50,7 +55,8 @@ const Expenses = () => {
       )
       .then((res) => {
         const id=res.data?.name
-        setExpenseList({...expenseList, [id]:expense})
+        dispatch(expenseActions.setExpenseList({...expenseList, [id]:expense}))
+        // setExpenseList({...expenseList, [id]:expense})
         setExpense({
           amount: 0,
           description: "",
