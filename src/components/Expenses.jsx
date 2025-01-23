@@ -9,7 +9,7 @@ import StarIcon from "@mui/icons-material/Star";
 import { themeActions } from "../store/reducers/themeSlice";
 import { CSVLink } from "react-csv";
 
-const Expenses = (props) => {
+const Expenses = () => {
   const dispatch = useDispatch();
   const expenseList = useSelector((state) => state.expense.expenseList);
   // const { expenseList, setExpenseList } = useContext(ContextFile);
