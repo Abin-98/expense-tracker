@@ -5,11 +5,11 @@ import Contact from "./Contact"
 describe("Contact component", ()=>{
     test('prints Contact Details', ()=>{
         render(<Contact/>);
-        expect(screen.getByText(/Contact Details/i).toBeInTheDocument());
+        expect(screen.getByText(/Contact Details/i)).toBeInTheDocument();
     })
 
     test("prints Update", ()=>{
         render(<Contact/>)
-        expect(screen.getByText(/Update/i).toBeInTheDocument());
+        expect(screen.getByText(/Update/i)).toBeInTheDocument();
     })
 })

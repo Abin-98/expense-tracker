@@ -5,6 +5,6 @@ import Signup from "./Signup"
 describe("Signup component", ()=>{
     test('prints Have an account?', ()=>{
         render(<Signup/>);
-        expect(screen.getByText(/Have an account?/i).toBeInTheDocument());
+        expect(screen.getByText(/Have an account?/i)).toBeInTheDocument();
     })
 })

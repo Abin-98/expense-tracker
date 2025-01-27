@@ -1,10 +1,10 @@
 import { render, screen } from "@testing-library/react"
-import { describe, expect, test } from "vitest"
+import { describe, expect, it } from "vitest"
 import Expenses from "./Expenses"
 
 describe("Expenses component", ()=>{
-    test('prints Add new transaction', ()=>{
+    it('prints Add new transaction', ()=>{
         render(<Expenses/>);
-        expect(screen.getByText(/Add new transaction/i).toBeInTheDocument());
+        expect(screen.getByText(/Add new transaction/i)).toBeInTheDocument();
     })
 })
