@@ -75,8 +75,8 @@ const Expenses = () => {
       .catch((err) => console.log(err));
   };
   return (
-    <section className="grid grid-cols-5 gap-5 dark:bg-neutral-700 h-[100vh]">
-      <div className="flex justify-end col-span-2">
+    <section className="flex flex-col justify-center md:grid md:grid-cols-5 gap-5 dark:bg-neutral-700">
+      <div className="flex justify-center col-span-2 pb-24 m-5">
         <div className="flex flex-col w-[20rem] mt-8">
           <h1 className="text-2xl pb-4 font-semibold dark:text-neutral-300">
             Add new transaction
@@ -151,9 +151,9 @@ const Expenses = () => {
           </form>
         </div>
       </div>
-      <div className="flex justify-center col-span-3">
+      <div className="flex justify-center col-span-3 pb-24 m-5">
         <div className="flex flex-col mt-3 min-w-[20rem] w-[40rem]">
-          <div className="py-5 grid grid-cols-2 place-content-start">
+          <div className="py-5 grid sm:grid-cols-2 grid-cols-1 place-content-start">
             <div className="col-span-1">
               <h3 className="text-xl font-semibold dark:text-neutral-300">
                 YOUR BALANCE
@@ -162,24 +162,24 @@ const Expenses = () => {
                 ${netGain - netLoss}
               </h1>
             </div>
-            <div className="col-span-1 grid grid-cols-2 gap-5">
+            <div className="col-span-1 grid grid-cols-2 gap-5 sm:my-0 my-5">
               {netLoss >= 10000 && (
                 <button
                   onClick={() => dispatch(themeActions.toggleActivate())}
-                  className="bg-yellow-500 rounded-md text-white px-4 py-2 h-full hover:bg-yellow-600 flex items-center">
+                  className="bg-yellow-500 rounded-md text-white px-4 py-2 h-full min-w-[8rem] hover:bg-yellow-600 flex items-center">
                   <span>
                     <StarIcon />
                   </span>
-                  <span>Activate Premium</span>
+                  <span className="font-semibold">Activate Premium</span>
                 </button>
               )}
               {activated && (
-                <button className="bg-green-500 rounded-md text-white px-4 py-2 h-full hover:bg-green-700 flex items-center">
-                  <CSVLink data={Object.values(expenseList)}>
+                <button className="bg-green-500 rounded-md text-white px-4 py-2 h-full min-w-[8rem] hover:bg-green-700 flex items-center">
                   <span>
                     <DownloadIcon />
                   </span>
-                  <span>Download File</span>
+                  <CSVLink data={Object.values(expenseList)}>
+                    <span className="font-semibold">Download .csv File</span>
                   </CSVLink>
                 </button>
               )}

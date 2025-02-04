@@ -58,7 +58,7 @@ const List = ({ item, assetList, id, setFetchExpenses }) => {
   return (
     <div
       key={id}
-      className={`mb-3 py-2 bg-white px-4 w-full grid grid-cols-4 gap-x-10 justify-items-start rounded-lg shadow-lg dark:bg-slate-300 ${
+      className={`mb-3 py-2 bg-white px-4 w-full min-w-[20rem] grid grid-cols-4 gap-x-10 justify-items-start rounded-lg shadow-lg dark:bg-slate-300 ${
         assetList.some((asset) => asset === item.category)
           ? "border-green-600"
           : "border-red-600"

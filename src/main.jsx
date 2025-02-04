@@ -8,10 +8,10 @@ import store from "./store/store.js";
 
 createRoot(document.getElementById("root")).render(
   <BrowserRouter>
-    <ContextProvider>
-      <Provider store={store}>
+    <Provider store={store}>
+      <ContextProvider>
         <App />
-      </Provider>
-    </ContextProvider>
+      </ContextProvider>
+    </Provider>
   </BrowserRouter>
 );

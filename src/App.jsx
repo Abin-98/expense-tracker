@@ -6,8 +6,10 @@ import Contact from "./Pages/Contact";
 import ForgotPassword from "./Pages/ForgotPassword";
 import { useSelector } from "react-redux";
 
+
 function App() {
   const idToken = useSelector((state) => state.auth.idToken);
+  // const dispatch = useDispatch()
   // const {isLoggedIn} = useContext(ContextFile)
 
   return (

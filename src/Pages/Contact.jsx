@@ -67,7 +67,7 @@ const Contact = () => {
         dark && "dark"
       } bg-neutral-200 dark:bg-neutral-700 h-[100vh]`}
     >
-      <div className="flex flex-col container border-2 w-[30rem] p-3 mt-40 bg-white dark:bg-slate-300 h-fit">
+      <div className="flex flex-col container border-2 w-[30rem] p-3 mt-40 bg-white dark:bg-slate-300 h-fit m-5">
         <div className="flex justify-between py-5">
           <h1 className="text-lg font-bold">Contact Details</h1>
           <button
@@ -78,9 +78,10 @@ const Contact = () => {
           </button>
         </div>
         <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
-          <div className="flex gap-4">
+          <div className="flex flex-col sm:grid grid-cols-4 gap-4 items-center">
+            <label className="col-span-1">Name:</label>
             <input
-              className="w-full border-2 p-2"
+              className="w-full border-2 p-2 col-span-3"
               type="text"
               placeholder="Full Name"
               value={updatedInfo.name}
@@ -89,8 +90,11 @@ const Contact = () => {
               }
               required
             />
+            </div>
+            <div className="flex flex-col sm:grid grid-cols-4 gap-4 items-center">
+            <label className="col-span-1">Profile Pic Url:</label>
             <input
-              className="w-full border-2 p-2"
+              className="w-full border-2 p-2 col-span-3"
               type="text"
               placeholder="Profile Pic"
               value={updatedInfo.profilePic}

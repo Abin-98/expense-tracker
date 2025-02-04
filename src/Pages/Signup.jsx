@@ -50,7 +50,7 @@ const Signup = () => {
         alert("Success!");
         dispatch(authActions.setIdToken(data.idToken))
         // setIdToken(data.idToken)
-        localStorage.setItem("idtoken", data.idToken)
+        localStorage.setItem("idToken", data.idToken)
         console.log(data);
         navigate('/')
       })
