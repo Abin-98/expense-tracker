@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import { ContextFile } from "../context/ContextFile";
 import { useDispatch } from "react-redux";
 import { authActions } from "../store/reducers/authSlice";
+import { toast } from "react-toastify";
 
 const Signup = () => {
 
@@ -18,7 +19,7 @@ const Signup = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!isLogin && userInfo.password !== confirmPass) {
-      alert("Confirm password does not match! try again");
+      toast.error("Confirm password does not match! try again", { closeOnClick: true });
       return;
     }
     let url = "";
@@ -47,14 +48,17 @@ const Signup = () => {
         }
       })
       .then((data) => {
-        alert("Success!");
+        toast.success("Successfully Logged in", { closeOnClick: true });
         dispatch(authActions.setIdToken(data.idToken))
         // setIdToken(data.idToken)
         localStorage.setItem("idToken", data.idToken)
         console.log(data);
         navigate('/')
       })
-      .catch((err) => alert(err.message));
+      .catch((err) => {
+        toast.error("Failed to Login", { closeOnClick: true });
+        console.log(err.message)
+      });
   };
 
   return (

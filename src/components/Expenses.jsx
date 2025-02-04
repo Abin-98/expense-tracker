@@ -76,7 +76,7 @@ const Expenses = () => {
   };
   return (
     <section className="flex flex-col justify-center md:grid md:grid-cols-5 gap-5 dark:bg-neutral-700">
-      <div className="flex justify-center col-span-2 pb-24 m-5">
+      <div className="flex md:justify-end justify-center col-span-2 pb-24 m-5">
         <div className="flex flex-col w-[20rem] mt-8">
           <h1 className="text-2xl pb-4 font-semibold dark:text-neutral-300">
             Add new transaction

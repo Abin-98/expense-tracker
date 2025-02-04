@@ -2,6 +2,7 @@ import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { ContextFile } from "../context/ContextFile";
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 const Contact = () => {
   const idToken = useSelector((state) => state.auth.idToken);
@@ -55,10 +56,13 @@ const Contact = () => {
         }
       )
       .then((res) => {
-        alert("Successfully Updated");
+        toast.success("Successfully updated details", { closeOnClick: true });
         console.log(res);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        toast.error("Failed to Update", { closeOnClick: true });
+        console.log(err)
+      });
   };
 
   return (
@@ -67,19 +71,19 @@ const Contact = () => {
         dark && "dark"
       } bg-neutral-200 dark:bg-neutral-700 h-[100vh]`}
     >
-      <div className="flex flex-col container border-2 w-[30rem] p-3 mt-40 bg-white dark:bg-slate-300 h-fit m-5">
+      <div className="flex flex-col container border-2 w-[35rem] p-3 mt-40 bg-white dark:bg-slate-300 h-fit m-5">
         <div className="flex justify-between py-5">
-          <h1 className="text-lg font-bold">Contact Details</h1>
+          <h1 className="text-2xl font-bold">Contact Details</h1>
           <button
             onClick={handleCancel}
             className="px-2 bg-white border-red-500 border-2 text-red-500"
           >
-            Cancel
+            Go Back
           </button>
         </div>
-        <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
-          <div className="flex flex-col sm:grid grid-cols-4 gap-4 items-center">
-            <label className="col-span-1">Name:</label>
+        <form className="flex flex-col gap-6 mt-10" onSubmit={handleSubmit}>
+          <div className="flex flex-col sm:grid grid-cols-4 gap-4 items-start">
+            <label className="col-span-1 text-lg">Name:</label>
             <input
               className="w-full border-2 p-2 col-span-3"
               type="text"
@@ -91,8 +95,8 @@ const Contact = () => {
               required
             />
             </div>
-            <div className="flex flex-col sm:grid grid-cols-4 gap-4 items-center">
-            <label className="col-span-1">Profile Pic Url:</label>
+            <div className="flex flex-col sm:grid grid-cols-4 gap-4 items-start">
+            <label className="col-span-1 text-lg">Profile Pic Url:</label>
             <input
               className="w-full border-2 p-2 col-span-3"
               type="text"

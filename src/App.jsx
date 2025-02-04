@@ -5,7 +5,8 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import Contact from "./Pages/Contact";
 import ForgotPassword from "./Pages/ForgotPassword";
 import { useSelector } from "react-redux";
-
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const idToken = useSelector((state) => state.auth.idToken);
@@ -14,6 +15,7 @@ function App() {
 
   return (
     <>
+    <ToastContainer/>
       <Routes>
         <Route
           path="/"
