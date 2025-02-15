@@ -118,6 +118,7 @@ const Contact = () => {
                 src={userProfilePic}
                 alt="profile pic"
                 className="rounded-full w-20 h-20"
+                referrerPolicy="no-referrer"
               />
             ) : (
               <AccountCircleIcon

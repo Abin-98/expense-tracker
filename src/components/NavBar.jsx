@@ -69,7 +69,7 @@ const NavBar = () => {
           <button onClick={handleUserDetails} className="p-4 block">
             <Tooltip title="Account Details" arrow>
               {userProfilePic ? (
-                  <img src={userProfilePic} alt="profile pic" className="rounded-full w-8 h-8 hover:scale-110"/>
+                  <img src={userProfilePic} alt="profile pic" className="rounded-full w-8 h-8 hover:scale-110" referrerPolicy="no-referrer"/>
               ) : (
                 <AccountCircleIcon
                   fontSize="large"
