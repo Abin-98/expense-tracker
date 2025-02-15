@@ -7,8 +7,7 @@ import { toast } from "react-toastify";
 const Signup = () => {
 
   const dispatch = useDispatch()
-
-    const {navigate} = useContext(ContextFile)
+  const {navigate} = useContext(ContextFile)
   const [isLogin, setIsLogin] = useState(false);
   const [confirmPass, setConfirmPass] = useState("");
   const [userInfo, setUserInfo] = useState({
@@ -52,6 +51,12 @@ const Signup = () => {
         dispatch(authActions.setIdToken(data.idToken))
         // setIdToken(data.idToken)
         localStorage.setItem("idToken", data.idToken)
+        localStorage.setItem("userName", data.displayName)
+        localStorage.setItem("userEmail", data.email)
+        dispatch(authActions.setUserEmail(data.email))
+        console.log(data.email);
+        
+        dispatch(authActions.setUserName(data.displayName))
         console.log(data);
         navigate('/')
       })
@@ -62,15 +67,18 @@ const Signup = () => {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center bg-signup h-[100vh]">
-      <div className="border-2 bg-white w-[25rem] shadow-xl">
+    <div className="flex sm:flex-row flex-col">
+    <div className="flex flex-col flex-1 justify-center items-center h-[100vh]">
+    <div className="text-blue-500 font-semibold text-4xl mb-10 mt-5">BudgetBuddy.</div>
+    <div className="text-xl text-center font-semibold sm:w-1/2 mb-10 p-4">Smart tracking for a stress-free budget – Manage your expenses effortlessly! 💰</div>
+      <div className="bg-white max-w-[40rem] w-full shadow-xl">
         <div className="flex flex-col py-7 px-5">
           <h1 className="flex justify-center text-2xl my-5">
-            {isLogin ? "Login" : "SignUp"}
+            {isLogin ? "Welcome Back" : "Sign Up"}
           </h1>
-          <form onSubmit={handleSubmit} className="flex flex-col gap-2">
+          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
             <input
-              className="border-2 px-2 rounded-md h-10"
+              className="border-2 px-2 rounded-md h-12 text-xl"
               type="email"
               placeholder="Email"
               value={userInfo.email}
@@ -80,7 +88,7 @@ const Signup = () => {
               required
             />
             <input
-              className="border-2 px-2 rounded-md h-10"
+              className="border-2 px-2 rounded-md h-12 text-xl"
               type="password"
               placeholder="Password"
               value={userInfo.password}
@@ -91,7 +99,7 @@ const Signup = () => {
             />
             {!isLogin && (
               <input
-                className="border-2 px-2 rounded-md h-10"
+                className="border-2 px-2 rounded-md h-12 text-xl"
                 type="password"
                 placeholder="Current Password"
                 value={confirmPass}
@@ -105,7 +113,7 @@ const Signup = () => {
               {isLogin ? "Login" : "SignUp"}
             </button>
           </form>
-          {isLogin && <button className="underline text-blue-500">Forgot Password?</button>}
+          {isLogin && <button onClick={()=>navigate('/forgotpass')} className="underline text-blue-500">Forgot Password?</button>}
         </div>
       </div>
       <div className="flex bg-lime-100 border-2 border-black rounded-md mt-5 p-3 w-[25rem] justify-center">
@@ -125,6 +133,9 @@ const Signup = () => {
           </span>
         )}
       </div>
+    </div>
+    <div className="flex-1 hidden sm:block flex-col bg-signup p-10 py-20">
+    </div>
     </div>
   );
 };

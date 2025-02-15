@@ -2,9 +2,16 @@
 
 import axios from "axios";
 import { useState } from "react";
+import { useSelector } from "react-redux";
+import EditNoteIcon from "@mui/icons-material/EditNote";
+import { Tooltip } from "@mui/material";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 
 const List = ({ item, assetList, id, setFetchExpenses }) => {
-
+  const userEmail = useSelector((state) => state.auth.userEmail);
+  const emailProper = userEmail.replace(/\./g, "_");
+  const optionsList = useSelector((state) => state.category.optionsList);
+  const hardCodedList = useSelector((state)=>state.category.hardCodedList)
   const [isEditing, setIsEditing] = useState(false);
   const [newExpense, setNewExpense] = useState({
     category: item.category,
@@ -17,24 +24,23 @@ const List = ({ item, assetList, id, setFetchExpenses }) => {
   };
 
   const handleDoneEdit = (e) => {
-    e.preventDefault()
-    
+    e.preventDefault();
+
     axios
       .put(
-        `https://expense-tracker-da8bb-default-rtdb.firebaseio.com/expenses/${id}.json`,
+        `https://expense-tracker-da8bb-default-rtdb.firebaseio.com/expenses/${emailProper}/${id}.json`,
         {
           description: newExpense.description,
           amount: newExpense.amount,
-          category: newExpense.category
+          category: newExpense.category,
         }
       )
       .then((res) => {
-        console.log(res, 'Update done successfully');
+        console.log(res, "Update done successfully");
         setIsEditing(false);
         setFetchExpenses((prev) => !prev);
-        
       })
-      .catch((err)=>console.log(err))
+      .catch((err) => console.log(err));
   };
 
   const handleCancel = () => {
@@ -42,10 +48,9 @@ const List = ({ item, assetList, id, setFetchExpenses }) => {
   };
 
   const handleDelete = () => {
-
     axios
       .delete(
-        `https://expense-tracker-da8bb-default-rtdb.firebaseio.com/expenses/${id}.json`
+        `https://expense-tracker-da8bb-default-rtdb.firebaseio.com/expenses/${emailProper}/${id}.json`
       )
       .then((res) => {
         console.log(res, "deleted successfully");
@@ -58,11 +63,11 @@ const List = ({ item, assetList, id, setFetchExpenses }) => {
   return (
     <div
       key={id}
-      className={`mb-3 py-2 bg-white px-4 w-full min-w-[20rem] grid grid-cols-4 gap-x-10 justify-items-start rounded-lg shadow-lg dark:bg-slate-300 ${
+      className={`mb-3 py-2 bg-white px-4 w-full min-w-[20rem] grid grid-cols-4 gap-x-10 justify-items-start rounded-lg shadow-lg dark:bg-slate-200 ${
         assetList.some((asset) => asset === item.category)
           ? "border-green-600"
           : "border-red-600"
-      } ${isEditing? 'border-2 border-purple-700' : 'border-l-8'}`}
+      } ${isEditing ? "border-2 border-purple-700" : "border-l-8"}`}
     >
       {isEditing ? (
         <form className="col-span-4 grid grid-cols-4 gap-x-5">
@@ -75,24 +80,17 @@ const List = ({ item, assetList, id, setFetchExpenses }) => {
             placeholder="Food"
             required
           >
-            <option value="Food">Food</option>
-            <option value="Petrol">Petrol</option>
-            <option value="Entertainment">Entertainment</option>
-            <option value="Travel">Travel</option>
-            <option value="Education">Education</option>
-            <option value="Rent">Rent</option>
-            <option value="Clothes">Clothes</option>
-            <option value="Furniture">Furniture</option>
-            <option value="Hospital-bills">Hospital-bills</option>
-            <option value="Donation">Donation</option>
-            <option value="Investment">Investment</option>
-            <option value="Groceries">Groceries</option>
-            <option value="Kitchen-utensils">Kitchen-utensils</option>
-            <option value="Maintenance">Maintenance</option>
-            <option value="Repair">Repair</option>
-            <option value="Assets-Profit">Assets-Profit</option>
-            <option value="Savings">Savings</option>
-            <option value="Salary">Salary</option>
+            {Object.keys(optionsList)?.map((id) => (
+              <option key={id} value={optionsList[id]?.option}>
+                {optionsList[id]?.option}
+              </option>
+            ))}
+
+            {hardCodedList?.map((option, index) => (
+              <option key={index} value={option}>
+                {option}
+              </option>
+            ))}
           </select>
           <input
             type="text"
@@ -130,21 +128,31 @@ const List = ({ item, assetList, id, setFetchExpenses }) => {
         <>
           <span className="text-md font-semibold">{item.category}</span>
           <span className="italic">{item.description}</span>
-          <span className="text-lg font-semibold">${item.amount}</span>
+          <span className="text-lg font-semibold">₹{item.amount}</span>
 
-          <span className="flex flex-wrap gap-2">
+          <span className="flex flex-wrap gap-4">
             <button
               type="submit"
               onClick={handleEdit}
-              className="bg-blue-500 rounded-md text-white px-2 hover:bg-blue-700"
+              className="p-1 rounded-full bg-blue-400"
             >
-              Edit
+              <Tooltip title="Edit" arrow>
+                <EditNoteIcon
+                  fontSize="medium"
+                  className="text-white hover:scale-125 dark:text-black"
+                />
+              </Tooltip>
             </button>
             <button
               onClick={handleDelete}
-              className="bg-red-500 rounded-md text-white px-2 hover:bg-red-700"
+              className="p-1 rounded-full bg-red-400"
             >
-              Delete
+              <Tooltip title="Delete" arrow>
+                <DeleteForeverIcon
+                  fontSize="medium"
+                  className="text-white hover:scale-125 dark:text-black"
+                />
+              </Tooltip>
             </button>
           </span>
         </>
